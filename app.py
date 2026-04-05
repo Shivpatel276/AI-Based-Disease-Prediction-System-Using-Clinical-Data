@@ -151,12 +151,9 @@ with tab3:
     
 with tab4:
     load_dotenv()
-    api_key = os.getenv("AIzaSyCDSikk4DY0HBIAE67qJ26llasGhCQERCU") or st.secrets.get("AIzaSyCDSikk4DY0HBIAE67qJ26llasGhCQERCU")
-    genai.configure(api_key=api_key)
+    genai.configure(api_key=st.secrets["AIzaSyAo3Dck4194NU60tIygXTHR10YppZReeo0"])
     st.title(" AI Health Assistant")
     st.write("Describe your symptoms and get AI-powered health insights.")
-
-    genai.configure(api_key="AIzaSyCDSikk4DY0HBIAE67qJ26llasGhCQERCU")
     model_ai = genai.GenerativeModel("gemini-2.5-flash") 
 
     # Chat history
