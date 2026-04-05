@@ -62,11 +62,11 @@ with tab1:
     algorithms = ['Logistic Regression', 'SVM', 'Decision Tree', 'Random Forest']
     modelnames = ['logistic.pkl', 'svm_model.pkl', 'DecisionTree.pkl', 'random_forest.pkl']
 
-    predictions = []  # ✅ renamed to avoid conflict
+    predictions = []  
 
     def predict_heart_disease(data):
-        predictions = []  # ✅ local list
-        for modelname in modelnames:  # ✅ fixed: modelnames is the list, modelname is each item
+        predictions = []  
+        for modelname in modelnames:  
             model = pickle.load(open(modelname, 'rb'))
             prediction = model.predict(data)
             predictions.append(prediction)  # ✅ append to list, not to itself
@@ -76,7 +76,7 @@ with tab1:
         st.subheader("Prediction Results:")
         st.markdown("--------------------------------------------------")
         
-        result = predict_heart_disease(input_data)  # ✅ use input_df not input_data
+        result = predict_heart_disease(input_data)  
         
         for i in range(len(result)):  # ✅ loop over result not prediction
             st.subheader(algorithms[i])
