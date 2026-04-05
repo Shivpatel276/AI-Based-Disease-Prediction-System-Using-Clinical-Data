@@ -5,6 +5,10 @@ import pandas as pd
 import base64
 import plotly.express as px
 import google.generativeai as genai
+import streamlit as st
+import os
+from dotenv import load_dotenv
+
 
 def get_binary_file_download_html(df):
     csv = df.to_csv(index=False)
@@ -146,6 +150,9 @@ with tab3:
     
     
 with tab4:
+    load_dotenv()
+    api_key = os.getenv("AIzaSyCDSikk4DY0HBIAE67qJ26llasGhCQERCU") or st.secrets.get("AIzaSyCDSikk4DY0HBIAE67qJ26llasGhCQERCU")
+    genai.configure(api_key=api_key)
     st.title(" AI Health Assistant")
     st.write("Describe your symptoms and get AI-powered health insights.")
 
