@@ -8,6 +8,8 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
+with open("style.css",encoding="utf-8") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 def get_binary_file_download_html(df):
     csv = df.to_csv(index=False)
