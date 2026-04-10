@@ -409,6 +409,7 @@ hr {
     border: 1.5px solid #dce3ed !important;
     border-radius: 11px !important;
     background-color: #f8fafc !important;
+    color: #0d1b2a !important;
     font-size: 0.95rem !important;
     padding: 10px 14px !important;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
