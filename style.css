@@ -397,6 +397,14 @@ hr {
     padding: 14px 18px !important;
 }
 
+[data-testid="stChatMessage"] p,
+[data-testid="stChatMessage"] span,
+[data-testid="stChatMessage"] div,
+[data-testid="stChatMessage"] .stMarkdown,
+[data-testid="stChatMessage"] .stMarkdown p {
+    color: #0d1b2a !important;
+}
+
 .stChatInput textarea {
     border: 1.5px solid #dce3ed !important;
     border-radius: 11px !important;
