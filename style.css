@@ -62,6 +62,16 @@ p {
 }
 
 /* ══════════════════════════════════════
+   MARKDOWN TEXT COLOR FIX
+══════════════════════════════════════ */
+.stMarkdown,
+.stMarkdown p,
+.stMarkdown li,
+.stMarkdown span {
+    color: #0d1b2a !important;
+}
+
+/* ══════════════════════════════════════
    TABS — SLIDER STYLE
 ══════════════════════════════════════ */
 
