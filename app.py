@@ -314,29 +314,48 @@ with tab2:
         - Oldpeak: ST depression [Numeric]
         - ST_Slope: [0: Upsloping, 1: Flat, 2: Downsloping]
     """)
+
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
     if uploaded_file is not None:
         input_data = pd.read_csv(uploaded_file)
-        model = pickle.load(open('logistic.pkl', 'rb'))
+
         expected_columns = ['Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol',
                             'FastingBS', 'RestingECG', 'MaxHR', 'ExerciseAngina',
                             'Oldpeak', 'ST_Slope']
 
-        if set(expected_columns).issubset(input_data.columns):
-            input_data['prediction LR'] = ''
-            for i in range(len(input_data)):
-                arr = input_data[expected_columns].iloc[i].values
-                input_data['prediction LR'][i] = model.predict([arr])[0]
-            input_data.to_csv('predictedHeartLR.csv')
+        # Check 1: Required columns exist
+        if not set(expected_columns).issubset(input_data.columns):
+            st.warning("The uploaded CSV file does not contain the required columns. Please check the instructions and try again.")
+
+        # Check 2: No NaN values
+        elif input_data[expected_columns].isnull().any().any():
+            st.warning("The uploaded CSV file contains NaN values. Please clean your data and try again.")
+
+        else:
+            # Load model
+            model = pickle.load(open('logistic.pkl', 'rb'))
+
+            # Vectorized prediction (no loop)
+            input_data['Prediction LR'] = model.predict(input_data[expected_columns])
+
+            # Map prediction values to labels
+            input_data['Prediction LR'] = input_data['Prediction LR'].map({0: 'No Disease', 1: 'Heart Disease'})
+
+            # Convert to CSV in memory for download
+            csv_bytes = input_data.to_csv(index=False).encode('utf-8')
+
             st.subheader("Predictions:")
             st.write(input_data)
-            st.markdown(get_binary_file_download_html(input_data), unsafe_allow_html=True)
-        else:
-            st.warning("The uploaded CSV file does not contain the required columns. Please check the instructions and try again.")
+
+            st.download_button(
+                label="⬇️ Download Predictions as CSV",
+                data=csv_bytes,
+                file_name="predictedHeartLR.csv",
+                mime="text/csv"
+            )
     else:
         st.warning("Please upload a CSV file to get predictions.")
-
 
 # ─────────────────────────────────────────────
 # TAB 3 — Model Information (unchanged)
